@@ -1,0 +1,42 @@
+# macOS
+.DS_Store
+
+# IntelliJ IDEA / JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+*.xml
+
+# Eclipse / Spring Tool Suite
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated/
+.springBeans
+.sts4-cache/
+
+# VS Code
+.vscode/
+
+# Maven and Gradle build output
+**/target/
+**/build/
+**/.gradle/
+
+# Runtime files
+*.log
+logs/
+*.pid
+*.pid.lock
+
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Java crash reports
+hs_err_pid*
+replay_pid*
