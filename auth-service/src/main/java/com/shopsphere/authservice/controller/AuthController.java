@@ -2,17 +2,17 @@ package com.shopsphere.authservice.controller;
 
 import com.shopsphere.authservice.common.response.ApiResponse;
 import com.shopsphere.authservice.common.util.ApiResponseUtil;
+import com.shopsphere.authservice.dto.request.LoginRequest;
 import com.shopsphere.authservice.dto.request.RegisterRequest;
+import com.shopsphere.authservice.dto.response.LoginResponse;
 import com.shopsphere.authservice.dto.response.RegisterResponse;
 import com.shopsphere.authservice.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -33,5 +33,26 @@ public class AuthController {
                                 response
                         )
                 );
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<LoginResponse>> login(
+            @Valid @RequestBody LoginRequest request) {
+
+        LoginResponse response = authService.login(request);
+
+        return ResponseEntity.ok(
+                ApiResponseUtil.success(
+                        "Login successful",
+                        response
+                )
+        );
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<String> me(Authentication authentication) {
+
+        return ResponseEntity.ok(authentication.getName());
+
     }
 }
