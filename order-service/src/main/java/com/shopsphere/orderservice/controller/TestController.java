@@ -3,10 +3,11 @@ package com.shopsphere.orderservice.controller;
 import com.shopsphere.orderservice.client.ProductClient;
 import com.shopsphere.orderservice.client.dto.ApiResponse;
 import com.shopsphere.orderservice.client.dto.ProductResponse;
+import com.shopsphere.orderservice.config.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/v1/orders/test")
 @RequiredArgsConstructor
 public class TestController {
 
@@ -18,11 +19,18 @@ public class TestController {
 
         return productClient.getProductById(id);
     }
-    @GetMapping("/test/header")
-    public String header(
-            @RequestHeader("X-User-Email") String email) {
+    @GetMapping("/header")
+    public String header(CurrentUser currentUser) {
 
-        return email;
+        return """
+            Email : %s
+            UserId : %s
+            Role : %s
+            """.formatted(
+                currentUser.getEmail(),
+                currentUser.getUserId(),
+                currentUser.getRole()
+        );
 
     }
 }

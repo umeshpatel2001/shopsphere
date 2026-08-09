@@ -1,5 +1,6 @@
 package com.shopsphere.authservice.dto.request;
 
+import com.shopsphere.authservice.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,4 +27,6 @@ public class RegisterRequest {
 
     @Size(max = 15)
     private String phoneNumber;
+
+    private Role role;
 }

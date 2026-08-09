@@ -56,13 +56,19 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         }
 
         String username = jwtService.extractUsername(token);
-
+        String userId = jwtService.extractUserId(token);
+        String role = jwtService.extractRole(token);
         log.info("Username: {}", username);
+        log.info("UserId: {}", userId);
+        log.info("Role: {}", role);
 
         ServerWebExchange mutatedExchange = exchange
                 .mutate()
                 .request(builder ->
-                        builder.header("X-User-Email", username))
+                        builder
+                                .header("X-User-Email", username)
+                                .header("X-User-Id", userId)
+                                .header("X-User-Role", role))
                 .build();
 
         return chain.filter(mutatedExchange);

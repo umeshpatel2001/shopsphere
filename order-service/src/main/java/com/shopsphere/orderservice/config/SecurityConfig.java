@@ -10,18 +10,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+    SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/orders/**", "/test/**")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
-                );
+                .authorizeHttpRequests(auth ->
+                        auth.anyRequest().permitAll());
 
         return http.build();
     }
