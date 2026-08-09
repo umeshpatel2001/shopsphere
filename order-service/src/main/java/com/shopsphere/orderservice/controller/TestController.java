@@ -18,4 +18,11 @@ public class TestController {
 
         return productClient.getProductById(id);
     }
+    @GetMapping("/test/header")
+    public String header(
+            @RequestHeader("X-User-Email") String email) {
+
+        return email;
+
+    }
 }
