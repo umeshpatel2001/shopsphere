@@ -60,4 +60,20 @@ public class JwtServiceImpl implements JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
 
     }
+
+    @Override
+    public String extractUserId(String token) {
+
+        return extractAllClaims(token)
+                .get("userId", String.class);
+
+    }
+
+    @Override
+    public String extractRole(String token) {
+
+        return extractAllClaims(token)
+                .get("role", String.class);
+
+    }
 }

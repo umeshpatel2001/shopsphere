@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,15 +18,16 @@ public class OrderItem extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private Long productId;
+    private UUID productId;
 
-    @Column(nullable = false)
+    @Column(nullable =false)
     private Integer quantity;
 
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name="order_id", nullable=false)
     private Order order;
+
 }

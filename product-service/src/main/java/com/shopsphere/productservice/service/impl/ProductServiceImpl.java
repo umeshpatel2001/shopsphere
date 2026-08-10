@@ -101,9 +101,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse getProductById(Long id) {
+    public ProductResponse getProductById(UUID id) {
 
-        Product product = productRepository.findById(id)
+        Product product = productRepository.findByUuid(id)
                 .orElseThrow(() ->
                         new ProductNotFoundException("Product not found"));
 

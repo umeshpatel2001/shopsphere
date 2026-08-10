@@ -6,13 +6,15 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.UUID;
+
 @FeignClient(
         name = "product-service"
 )
 public interface ProductClient {
 
-    @GetMapping("/internal/products/{id}")
+    @GetMapping("/internal/products/{uuid}")
     ApiResponse<ProductResponse> getProductById(
-            @PathVariable Long id
+            @PathVariable UUID uuid
     );
 }

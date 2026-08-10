@@ -27,4 +27,34 @@ public class ApiResponseUtil {
 
     }
 
+    public static ApiResponse<Object> forbidden(String message) {
+
+        return ApiResponse.builder()
+                .success(false)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+    }
+
+    public static ApiResponse<Object> notFound(String message) {
+
+        return ApiResponse.builder()
+                .success(false)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+    }
+
+    public static ApiResponse<Object> internalServerError(String message) {
+
+        return ApiResponse.builder()
+                .success(false)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+    }
+
 }

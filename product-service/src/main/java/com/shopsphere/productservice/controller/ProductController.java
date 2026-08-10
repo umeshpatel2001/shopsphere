@@ -2,9 +2,12 @@ package com.shopsphere.productservice.controller;
 
 import com.shopsphere.productservice.common.response.ApiResponse;
 import com.shopsphere.productservice.common.util.ApiResponseUtil;
+import com.shopsphere.productservice.config.CurrentUser;
 import com.shopsphere.productservice.dto.request.CreateProductRequest;
 import com.shopsphere.productservice.dto.request.UpdateProductRequest;
 import com.shopsphere.productservice.dto.response.ProductResponse;
+import com.shopsphere.productservice.enums.Role;
+import com.shopsphere.productservice.security.RequireRole;
 import com.shopsphere.productservice.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +25,13 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @RequireRole({
+            Role.ADMIN,
+            Role.SELLER
+    })
     @PostMapping
-    public ResponseEntity<ApiResponse<ProductResponse>> createProduct(
-            @Valid @RequestBody CreateProductRequest request) {
+    public ResponseEntity<ApiResponse<ProductResponse>> createProduct(CurrentUser currentUser,
+                                                                      @Valid @RequestBody CreateProductRequest request) {
 
         ProductResponse response =
                 productService.createProduct(request);
@@ -67,6 +74,10 @@ public class ProductController {
         );
     }
 
+    @RequireRole({
+            Role.ADMIN,
+            Role.SELLER
+    })
     @PutMapping("/{uuid}")
     public ResponseEntity<ApiResponse<ProductResponse>> updateProduct(
             @PathVariable UUID uuid,
@@ -83,6 +94,10 @@ public class ProductController {
         );
     }
 
+    @RequireRole({
+            Role.ADMIN,
+            Role.SELLER
+    })
     @DeleteMapping("/{uuid}")
     public ResponseEntity<ApiResponse<Object>> deleteProduct(
             @PathVariable UUID uuid) {

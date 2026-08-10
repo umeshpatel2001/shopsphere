@@ -7,6 +7,8 @@ import com.shopsphere.productservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/internal/products")
 @RequiredArgsConstructor
@@ -14,13 +16,13 @@ public class InternalProductController {
 
     private final ProductService productService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     public ApiResponse<ProductResponse> getProduct(
-            @PathVariable Long id) {
+            @PathVariable UUID uuid) {
 
         return ApiResponseUtil.success(
                 "Product fetched successfully",
-                productService.getProductById(id)
+                productService.getProductById(uuid)
         );
     }
 }

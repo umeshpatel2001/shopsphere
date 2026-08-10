@@ -3,26 +3,37 @@ package com.shopsphere.orderservice.controller;
 import com.shopsphere.orderservice.client.ProductClient;
 import com.shopsphere.orderservice.client.dto.ApiResponse;
 import com.shopsphere.orderservice.client.dto.ProductResponse;
+import com.shopsphere.orderservice.config.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
+
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/v1/orders/test")
 @RequiredArgsConstructor
 public class TestController {
 
     private final ProductClient productClient;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     public ApiResponse<ProductResponse> test(
-            @PathVariable Long id) {
+            @PathVariable UUID uuid) {
 
-        return productClient.getProductById(id);
+        return productClient.getProductById(uuid);
     }
-    @GetMapping("/test/header")
-    public String header(
-            @RequestHeader("X-User-Email") String email) {
+    @GetMapping("/header")
+    public String header(CurrentUser currentUser) {
 
-        return email;
+        return """
+            Email : %s
+            UserId : %s
+            Role : %s
+            """.formatted(
+                currentUser.getEmail(),
+                currentUser.getUserId(),
+                currentUser.getRole()
+        );
 
     }
 }
