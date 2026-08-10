@@ -6,6 +6,9 @@ import com.shopsphere.orderservice.client.dto.ProductResponse;
 import com.shopsphere.orderservice.config.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/orders/test")
 @RequiredArgsConstructor
@@ -13,11 +16,11 @@ public class TestController {
 
     private final ProductClient productClient;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     public ApiResponse<ProductResponse> test(
-            @PathVariable Long id) {
+            @PathVariable UUID uuid) {
 
-        return productClient.getProductById(id);
+        return productClient.getProductById(uuid);
     }
     @GetMapping("/header")
     public String header(CurrentUser currentUser) {

@@ -19,5 +19,5 @@ public interface ProductService {
 
     void deleteProduct(UUID uuid);
 
-    ProductResponse getProductById(Long id);
+    ProductResponse getProductById(UUID id);
 }
